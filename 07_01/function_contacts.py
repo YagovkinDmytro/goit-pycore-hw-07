@@ -100,11 +100,8 @@ def show_birthday(args, book: AddressBook):
 @input_error
 def birthdays(book: AddressBook):
     records = list(book.values())
-    print(type(records))
-    print(records)
     upcoming = get_upcoming_birthdays(records)
     if not upcoming:
         return "No upcoming birthdays found in the next 7 days."
-    
-    return "\n".join([f"{entry['name']}: {entry['birthday']}" for entry in upcoming])
+    return f"Список привітань на цьому тижні:\n{"\n".join([f"{entry['name']}: {entry['birthday']}" for entry in upcoming])}"
 
