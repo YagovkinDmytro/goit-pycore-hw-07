@@ -51,7 +51,7 @@ class Record:
         if self.birthday:
             return f"Record({self.name.value}, phones: {'; '.join(p.value for p in self.phones)}, birthday: {self.birthday})"
         else:
-            f"Record(name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
+            return f"Record(name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
 
 
     def add_phone(self, phone):
@@ -94,6 +94,9 @@ class AddressBook(UserDict):
 
     def __str__(self):
         return f"Contacts book: {self.data}"
+    
+    def __repr__(self):
+        return f"AddressBook({self.data})"
 
      
 # book = AddressBook()

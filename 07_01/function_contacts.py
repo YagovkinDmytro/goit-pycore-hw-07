@@ -62,13 +62,16 @@ def show_phone(args, book: AddressBook):
     phones = ', '.join(phone.value for phone in record.phones)
     return phones
 
-def show_all(contacts):
-    if not contacts:
+
+def show_all(book: AddressBook):
+    if not book.data:
         return "No contacts available."
     
-    contacts = [(f"Name: {key} || Phone#: {value}") for key, value in contacts.items()]
-
+    contacts = [f"Name: {record.name.value}, Phones: {', '.join(p.value for p in record.phones)}"
+                for record in book.data.values()]
+    
     return "\n".join(contacts)
+
 
 @input_error
 def add_birthday(args, book):
