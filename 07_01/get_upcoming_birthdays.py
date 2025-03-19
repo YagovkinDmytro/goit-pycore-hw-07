@@ -1,11 +1,11 @@
 from datetime import datetime, timedelta
 
-users = [
-    {"name": "John Doe", "birthday": "1985.03.18"},
-    {"name": "Jane Smith", "birthday": "1990.01.27"},
-    {"name": "Oksana Yahovkina", "birthday": "1987.02.28"},
-    {"name": "Dmytro Yahovkin", "birthday": "1989.03.19"}
-]
+# users = [
+#     {"name": "John Doe", "birthday": "1985.03.18"},
+#     {"name": "Jane Smith", "birthday": "1990.01.27"},
+#     {"name": "Oksana Yahovkina", "birthday": "1987.02.28"},
+#     {"name": "Dmytro Yahovkin", "birthday": "1989.03.19"}
+# ]
 
 def get_upcoming_birthdays(users):
     upcoming_birthdays = []
@@ -30,8 +30,6 @@ def get_upcoming_birthdays(users):
             upcoming_birthdays.append({"name":user["name"], "birthday": congratulation_date_str})
     
     return upcoming_birthdays
-
-
 
 # upcoming_birthdays = get_upcoming_birthdays(users)
 # print("Список привітань на цьому тижні:", upcoming_birthdays)

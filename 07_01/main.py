@@ -1,4 +1,4 @@
-from function_contacts import parse_input, add_contact, change_contact, show_phone, show_all
+from function_contacts import parse_input, add_contact, change_contact, show_phone, show_all, add_birthday, show_birthday, birthdays
 from addres_book import AddressBook
 
 
@@ -24,14 +24,11 @@ def main():
         elif command == "all":
             print(show_all(book))
         elif command == "add-birthday":
-            # реалізація
-            pass
+            print(add_birthday(args, book))   
         elif command == "show-birthday":
-            # реалізація
-            pass
+            print(show_birthday(args, book)) 
         elif command == "birthdays":
-            # реалізація
-            pass
+            print(birthdays(book)) 
         else:
             print("Invalid command.")
 

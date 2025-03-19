@@ -1,6 +1,5 @@
 from collections import UserDict
 from datetime import datetime
-import get_upcoming_birthdays
 
 
 class Field:
@@ -49,14 +48,14 @@ class Record:
 
     def __repr__(self):
         if self.birthday:
-            return f"Record({self.name.value}, phones: {'; '.join(p.value for p in self.phones)}, birthday: {self.birthday})"
+            return f"(name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}, birthday: {self.birthday})"
         else:
-            return f"Record(name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
+            return f"(name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
 
 
     def add_phone(self, phone):
         self.phones.append(Phone(phone))
-
+        
     def remove_phone(self, value):
         self.phones = [phone for phone in self.phones if phone.value != value]
 
@@ -72,11 +71,6 @@ class Record:
             if phone.value == value:
                 return phone
         return f"Phone number {value} not found"
-    
-    def find_by_name(self, name):
-        if self.name.value == name:
-            return self
-        return f"contact {name} not found"
     
     def add_birthday(self, birthday):
         self.birthday = Birthday(birthday)
@@ -97,48 +91,3 @@ class AddressBook(UserDict):
     
     def __repr__(self):
         return f"AddressBook({self.data})"
-
-     
-# book = AddressBook()
-
-# # Створення запису для John
-# john_record = Record("John")
-# john_record.add_phone("1234567890")
-# john_record.add_phone("5555555555")
-# john_record.add_birthday("20.03.1990")
-
-# # Додавання запису John до адресної книги
-# book.add_record(john_record)
-
-# # Створення та додавання нового запису для Jane
-# jane_record = Record("Jane")
-# jane_record.add_phone("9876543210")
-# book.add_record(jane_record)
-
-# Виведення всіх записів у книзі
-# for name, record in book.data.items():
-#     print(record)
-
-# Знаходження та редагування телефону для John
-# john = book.find("John")
-# john.edit_phone("1234567890", "1112223333")
-
-# print(john)  # Виведення: Contact name: John, phones: 1112223333; 5555555555
-
-# # Пошук конкретного телефону у записі John
-# found_phone = john.find_phone("5555555555")
-# found_phone = john.find_phone("John")
-# print(f"{john.name}: {found_phone}")  # Виведення: 5555555555
-
-# Видалення запису Jane
-# book.delete("Jane")
-
-# Виведення всіх записів у книзі
-# for name, record in book.data.items():
-#     print(record)
-#     print(name)
-
-# upcoming_birthdays = get_upcoming_birthdays(users)
-#     return f"Список привітань на цьому тижні: {upcoming_birthdays}"
-
-# print(book)

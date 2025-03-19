@@ -1,5 +1,6 @@
 from functools import wraps
 from addres_book import AddressBook, Record
+from get_upcoming_birthdays import get_upcoming_birthdays
 
 
 def input_error(func):
@@ -74,16 +75,36 @@ def show_all(book: AddressBook):
 
 
 @input_error
-def add_birthday(args, book):
-    # реалізація
-    pass
+def add_birthday(args, book: AddressBook):
+    name, birthday, *_ = args
+    record = book.find(name)
+    if record is None:
+        return "Contact not found"
+    elif record.birthday:
+        return f"Birthday already exists for {name}"
+    record.add_birthday(birthday)
+    return f"Birthday added for {name}"
+
 
 @input_error
-def show_birthday(args, book):
-    # реалізація
-    pass
+def show_birthday(args, book: AddressBook):
+    name, *_ = args
+    record = book.find(name)
+    if record is None:
+        return "Contact not found"
+    if record.birthday:
+        return f"{name}'s birthday: {record.birthday.value.strftime('%d.%m.%Y')}"
+    return f"{name} has no birthday saved."
+
 
 @input_error
-def birthdays(args, book):
-    # реалізація
-    pass
+def birthdays(book: AddressBook):
+    records = list(book.values())
+    print(type(records))
+    print(records)
+    upcoming = get_upcoming_birthdays(records)
+    if not upcoming:
+        return "No upcoming birthdays found in the next 7 days."
+    
+    return "\n".join([f"{entry['name']}: {entry['birthday']}" for entry in upcoming])
+
