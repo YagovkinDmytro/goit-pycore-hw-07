@@ -47,7 +47,6 @@ def add_contact(args, book: AddressBook):
 def change_contact(args, book: AddressBook):
     name, old_phone, new_phone, *_ = args 
     record = book.find(name)
-    print(record)
     if record is None:
         return "Contact not found"
     record.edit_phone(old_phone, new_phone)
@@ -60,8 +59,8 @@ def show_phone(args, book: AddressBook):
     record = book.find(name)
     if record is None:
         return "Contact not found"
-    return record.phones
-
+    phones = ', '.join(phone.value for phone in record.phones)
+    return phones
 
 def show_all(contacts):
     if not contacts:

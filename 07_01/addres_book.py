@@ -46,6 +46,14 @@ class Record:
         else:
             return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
 
+
+    def __repr__(self):
+        if self.birthday:
+            return f"Record({self.name.value}, phones: {'; '.join(p.value for p in self.phones)}, {self.birthday})"
+        else:
+            f"Record({self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
+
+
     def add_phone(self, phone):
         self.phones.append(Phone(phone))
 
@@ -64,6 +72,11 @@ class Record:
             if phone.value == value:
                 return phone
         return f"Phone number {value} not found"
+    
+    def find_by_name(self, name):
+        if self.name.value == name:
+            return self
+        return f"contact {name} not found"
     
     def add_birthday(self, birthday):
         self.birthday = Birthday(birthday)
@@ -111,6 +124,7 @@ class AddressBook(UserDict):
 
 # # Пошук конкретного телефону у записі John
 # found_phone = john.find_phone("5555555555")
+# found_phone = john.find_phone("John")
 # print(f"{john.name}: {found_phone}")  # Виведення: 5555555555
 
 # Видалення запису Jane
