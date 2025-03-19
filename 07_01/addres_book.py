@@ -49,9 +49,9 @@ class Record:
 
     def __repr__(self):
         if self.birthday:
-            return f"Record({self.name.value}, phones: {'; '.join(p.value for p in self.phones)}, {self.birthday})"
+            return f"Record({self.name.value}, phones: {'; '.join(p.value for p in self.phones)}, birthday: {self.birthday})"
         else:
-            f"Record({self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
+            f"Record(name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
 
 
     def add_phone(self, phone):
