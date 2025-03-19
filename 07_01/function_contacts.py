@@ -15,7 +15,7 @@ def input_error(func):
             return "Please enter 'Name'"
         except Exception as e:
             return f"Unexpected error: {e}"
-        
+          
     return inner
 
 
@@ -28,48 +28,39 @@ def parse_input(user_input):
     return cmd, *args
 
 
-# @input_error
-# def add_contact(args, contacts):
-#     name, phone = args
-#     if name in contacts:
-#         user_input = input("Contact already exists. Do you want to update it? (yes/no): ")
-#         if user_input.strip().lower() == "yes":
-#             return change_contact(args, contacts)
-#         else:
-#             return "Contact not added."
-#     contacts[name] = phone
-#     return "Contact added."
-
 @input_error
 def add_contact(args, book: AddressBook):
-    name, phone, *_ = args
+    name, phone, *_ = args 
     record = book.find(name)
-    message = "Contact updated."
     if record is None:
         record = Record(name)
         book.add_record(record)
-        message = "Contact added."
-    if phone:
         record.add_phone(phone)
-    return message
+        return "Contact added."
+    if any(phone_number.value == phone for phone_number in record.phones):
+        return f"Phone number already exists: {phone}."
+    record.add_phone(phone)
+    return "Phone number added to existing contact."
 
 
 @input_error
-def change_contact(args, contacts):
-    name, phone = args
-    if name in contacts:
-        contacts[name] = phone
-        return "Contact updated."
-    else:
-        return "Contact not found."
+def change_contact(args, book: AddressBook):
+    name, old_phone, new_phone, *_ = args 
+    record = book.find(name)
+    print(record)
+    if record is None:
+        return "Contact not found"
+    record.edit_phone(old_phone, new_phone)
+    return "Contact updated."
 
 
 @input_error
-def show_phone(args, contacts):
-    if args[0] in contacts:
-        return contacts[args[0]]
-    else:
-        return "Contact not found."
+def show_phone(args, book: AddressBook):
+    name, *_ = args 
+    record = book.find(name)
+    if record is None:
+        return "Contact not found"
+    return record.phones
 
 
 def show_all(contacts):
